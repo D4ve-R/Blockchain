@@ -36,7 +36,7 @@ class Window(QMainWindow):
         self.b3.move(350, 60)
         self.b3.setStyleSheet("background-color: green; border: 2px solid black;")
         self.b3.setText("New Transaction")
-        #self.b3.clicked.connect(self.clicked3)
+        self.b3.clicked.connect(self.clicked3)
 
     def clicked(self):
         r = requests.get("http://0.0.0.0:6969/chain")
@@ -49,9 +49,10 @@ class Window(QMainWindow):
         self.update()
     
     def clicked3(self):
-        r = requests.post("http://0.0.0.0:6969/transaction/new", )
-        self.label2.setText(json.dumps(r.json(), indent=2, sort_keys=True))
-        self.update()
+        r = requests.post("http://0.0.0.0:6969/transaction/new", data={'sender': 'tester','recipient': '1234','amount': 6}, headers={'Content-Type':'application/json'})
+        if r.status_code == 201:
+            self.label2.setText(json.dumps(r.json(), indent=2, sort_keys=True))
+            self.update()
 
 
     def update(self):

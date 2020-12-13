@@ -72,7 +72,7 @@ def mine():
     block = mychain.new_block(proof)
 
     response = {
-            'message': "New Block",
+            'message': "Mined New Block...",
             'index': block['index'],
             'transactions': block['transactions'],
             'proof': block['proof'],
